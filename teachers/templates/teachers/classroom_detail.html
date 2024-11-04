@@ -1,0 +1,75 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+{% block title %}Classroom Detail{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 style="font-weight: bold;">{{ classroom.subject|upper }}</h1>
+    <!-- Start: break 4.0 --><br>
+    <!-- End: break 4.0 -->
+    <div>
+        <!-- Start: Split Button Warning -->
+        <a class="btn btn-warning btn-icon-split float-button" role="button" href="{% url 'teachers:add_section' code=classroom.code %}">
+            <span class="text-white-50 icon"><i class="fas fa-plus"></i></span>
+            <span class="text-white text">Add Section</span>
+        </a>
+        <!-- End: Split Button Warning -->
+    </div>
+    <!-- Start: break 4.0 --><br>
+    <!-- End: break 4.0 -->
+    <!-- Start: Duplicate me -->
+    <div class="row">
+        {% for section in classroom.sections.all %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow mb-4 float-card">
+                <div class="card-header py-3">
+                    <h6 class="text-secondary m-0 font-weight-bold">{{ section.title }}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <!-- Start: Split Button Success -->
+                        <a class="btn btn-success btn-icon-split float-button" role="button" style="margin: 5px;" href="{% url 'teachers:resources' pk=section.pk %}">
+                            <span class="text-white-50 icon"><i class="far fa-calendar-check"></i></span>
+                            <span class="text-white text">Resources</span>
+                        </a>
+                        <!-- End: Split Button Success -->
+                        <!-- Start: Split Button Success -->
+                        <a class="btn btn-info btn-icon-split float-button" role="button" style="margin: 5px;" href="{% url 'teachers:assignments' pk=section.pk %}">
+                            <span class="text-white-50 icon"><i class="far fa-calendar-plus"></i></span>
+                            <span class="text-white text">Assignments</span>
+                        </a>
+                        <!-- End: Split Button Success -->
+                        <!-- Start: Split Button Success -->
+                        <a class="btn btn-danger btn-icon-split float-button" role="button" style="margin: 5px;" href="{% url 'teachers:delete_section' pk=section.pk %}">
+                            <span class="text-white-50 icon"><i class="far fa-calendar-check"></i></span>
+                            <span class="text-white text">Delete</span>
+                        </a>
+                        <!-- End: Split Button Success -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- End: Duplicate me -->
+</div>
+{% endblock content %}
+
+{% block styles %}
+<style>
+.float-button {
+    transition: transform 0.2s ease-in-out;
+}
+.float-button:hover {
+    transform: translateY(-3px);
+}
+
+.float-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.float-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+</style>
+{% endblock styles %}

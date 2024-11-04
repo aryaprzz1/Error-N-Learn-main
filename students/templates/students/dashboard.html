@@ -1,0 +1,101 @@
+{% extends 'students/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Student Dashboard{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+
+<style>
+    h1 {
+        color: black; /* Change the color of the H1 heading */
+        font-family: 'Nunito', sans-serif; /* Change the font family */
+        font-size: 2.5rem; /* Adjust the font size as needed */
+        font-weight: 700; /* Adjust the font weight as needed */
+    }
+
+    .card-header h6 {
+        color: #000000; /* Change the color of the card header text */
+        font-family: 'Nunito', sans-serif; /* Change the font family */
+        font-size: 1.25rem; /* Adjust the font size as needed */
+    }
+
+    .btn-primary {
+        background-color: #4e73df; /* Change the background color of the button */
+        border-color: #4e73df; /* Change the border color of the button */
+        transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    }
+
+    .btn-primary:hover {
+        background-color: #2e59d9; /* Change the hover background color of the button */
+        border-color: #2653d4; /* Change the hover border color of the button */
+        transform: translateY(-3px); /* Floating effect on hover */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    }
+
+    .card {
+        height: 100%; /* Ensure all cards have the same height */
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff; /* Background color */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Floating effect */
+        transition: transform 0.1s, box-shadow 0.1s; /* Smooth transition */
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Floating effect on hover */
+       
+    }
+
+    .card-header {
+        border-top-left-radius: 10px; /* Match border-radius of the card */
+        border-top-right-radius: 10px; /* Match border-radius of the card */
+    }
+
+    .col-md-3 {
+        background-color: #ffffff; /* For debugging */
+    }
+</style>
+
+<div class="container-fluid">
+    <b><h1>Classrooms</h1></b>
+    <!-- Start: break 4.0 --><br />
+    <!-- End: break 4.0 -->
+
+    <div class="row">
+        {% for classroom in user.students.classrooms.all %}
+        <div class="col-md-3 mb-4"> <!-- 3 columns for 4 cards per row -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #4874db;">
+                    <h6>{{ classroom.subject|upper }}</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button">
+                            <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
+                            <b><a class="dropdown-item text-danger" href="{% url 'students:leave_classroom' code=classroom.code %}">&nbsp;Leave</a></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="m-0">Classroom code: {{ classroom.code }}<br /></p>
+                    <!-- Start: break 4.0 --><br />
+                    <!-- End: break 4.0 -->
+                    <!-- Start: Split Button Primary -->
+                    <a class="btn btn-primary btn-icon-split" role="button" href="{% url 'students:classroom_detail' code=classroom.code %}">
+                        <span class="text-white-50 icon">
+                            <i class="far fa-folder"></i>
+                        </span>
+                        <span class="text-white text">Manage</span>
+                    </a>
+                    <!-- End: Split Button Primary -->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- End Content Block -->
+{% endblock content %}

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>{% block title %}L.M.S{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'accounts/assets/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" />
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+
+        .navbar {
+            background-color: #001f3f;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #ffffff !important;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+        }
+
+        .nav-link:hover {
+            color: #00aaff !important;
+        }
+
+        .masthead {
+            height: 100vh;
+            min-height: 500px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+
+            url('{% static 'accounts/assets/img/wall1.png' %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            position: relative;
+        }
+
+        .masthead .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .masthead h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-custom {
+            background-color: #0b9eed;
+            color: #ffffff;
+            border-radius: 25px;
+            padding: 10px 30px;
+            margin: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-heading {
+            color: #00aaff;
+        }
+
+        .sr-contact {
+            color: #00aaff;
+        }
+
+        a {
+            color: #00aaff;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        hr {
+            border-top: 1px solid #00aaff;
+        }
+
+        .dark-text {
+            color: #000000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .small-text {
+            font-size: 1rem;
+        }
+
+        .animated-text {
+            animation: textAnimation 2s ease-in-out infinite;
+        }
+
+        /* From Uiverse.io by adamgiebl */
+        button {
+            position: relative;
+            display: inline-block;
+            margin: 15px;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: #ffffff;
+            background: transparent;
+            cursor: pointer;
+            transition: ease-out 0.5s;
+            border: 2px solid #2255c2;
+            border-radius: 10px;
+            box-shadow: inset 0 0 0 0 #2255c2;
+        }
+
+        button:hover {
+            color: white;
+            box-shadow: inset 0 -100px 0 0 #2255c2;
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        @keyframes textAnimation {
+            0% {
+                color: #ffffff;
+            }
+
+            50% {
+                color: #00aaff;
+            }
+
+            100% {
+                color: #ffffff;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #00aaff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="57">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'accounts/assets/img/errorandlearn.jpg' %}" alt="L.M.S Logo" />
+            </a>
+            <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-align-justify"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link large-text btn btn-custom" href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link large-text btn btn-custom" href="{% url 'accounts:signup' %}">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="text-center text-white d-flex masthead">
+        <!-- start -->
+        {% block content %}
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="text dark-text small-text gradient-text animated-text">
+                        <strong>Error N Learn</strong>
+                    </h1>
+                    <h2 class="text-uppercase dark-text small-text gradient-text animated-text">
+                        The ULTIMATE Student Association Club Website
+                    </h2>
+                    <hr class="my-4" style="border-top: 2px solid #00aaff; width: 50%;" />
+                </div>
+            </div>
+            <div class="col-lg-8 mx-auto">
+               <button><a class="button" role="button" href="{% url 'accounts:login' %}">Login</a></button> 
+            </div>
+        </div>
+        <!-- end -->
+        {% endblock content %}
+    </header>
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white" style="background-color: #063d58;">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Links -->
+            <section class="">
+                <!--Grid row-->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text mb-4 font-weight-bold">ErrorNLearn</h6>
+                        <p>
+                            The Learning Management System is designed to replace existing conventional methods of chalk and board style of learning. 
+                            A Learning Management System (LMS) is software that automates the administration of teaching events.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none" />
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                        <p>
+                            <a href="{% url 'accounts:signup' %}" class="text-white">Join Classroom</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'accounts:signup' %}" class="text-white">Assignment</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'accounts:signup' %}" class="text-white">Event Schedular</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'accounts:signup' %}" class="text-white">Online Meeting</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none" />
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                        <p><i class="fa fa-home mr-3"></i> Maharashtra, MH 400601, IND</p>
+                        <p><i class="fa fa-envelope mr-3"></i> info@gmail.com</p>
+                        <p><i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                        <p><i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+                        <!-- Facebook -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+
+                        <!-- Google -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-google"></i>
+                        </a>
+
+                        <!-- Instagram -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <!-- Linkedin -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+
+                        <!-- Github -->
+                        <a class="btn btn-primary btn-floating m-1" style="background-color: #333333" href="https://www.instagram.com/_shivam._.thakur__/" role="button">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!--Grid row-->
+            </section>
+            <!-- Section: Links -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: #063d58 ; font-size: 0.9rem;">
+            © 2024 Copyright:
+            <a class="text-white">ErrorNLearn</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'accounts/assets/js/bs-init.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script src="{% static 'accounts/assets/js/creative.js' %}"></script>
+</body>
+
+</html>

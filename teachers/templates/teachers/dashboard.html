@@ -1,0 +1,78 @@
+{% extends 'teachers/base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row align-items-center mb-4">
+        <div class="col">
+            <h1>Classrooms</h1>
+        </div>
+        <div class="col text-right">
+            <a class="btn btn-success btn-icon-split float-button" role="button" href="{% url 'teachers:create_meeting' %}">
+                <span class="text-white-50 icon"><i class="fas fa-calendar-plus"></i></span>
+                <span class="text-white text">Create Meeting</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Start: Dropdown Card -->
+    <div class="row">
+        {% for classroom in user.teachers.classrooms.all %}
+        <div class="col-md-6 mb-4">  <!-- Increase card size -->
+            <div class="card shadow mb-4 classroom-card float-card">  <!-- Add float-card class -->
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary m-0 font-weight-bold">{{ classroom.subject }}</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button">
+                            <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </button>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
+                            <a class="dropdown-item text-danger" href="{% url 'teachers:delete_classroom' code=classroom.code %}">Delete Classroom</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="m-0">Classroom code: {{ classroom.code }}<br></p>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary btn-icon-split float-button" role="button" href="{% url 'teachers:classroom_detail' code=classroom.code %}">
+                                <span class="text-white-50 icon"><i class="far fa-folder"></i></span>
+                                <span class="text-white text">Manage</span>
+                            </a>
+                        </div>
+                        <div class="col text-right">
+                            <a class="btn btn-warning btn-icon-split float-button" role="button" href="{% url 'teachers:classroom_students' code=classroom.code %}">
+                                <span class="text-white-50 icon"><i class="far fa-user"></i></span>
+                                <span class="text-white text">Students</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- End: Dropdown Card -->
+</div>
+{% endblock content %}
+
+{% block styles %}
+<style>
+.float-button {
+    transition: transform 0.2s ease-in-out;
+}
+.float-button:hover {
+    transform: translateY(-3px);
+}
+
+.float-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.float-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+</style>
+{% endblock styles %}

@@ -1,0 +1,51 @@
+{% extends 'students/base.html' %}
+{% block title %}Join Meeting{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center mt-5">Join Meeting</h1>
+    <form method="POST" action="{% url 'students:join' %}" class="mt-4">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" placeholder="Room ID:" class="form-control" id="roomID" name="roomID" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-icon-split">
+            <span class="text-white-50 icon"><i class="fas fa-video"></i></span>
+            <span class="text-white text">Join</span>
+        </button>
+    </form>
+
+    {% if room_id %}
+    <div class="video-container mt-5">
+        <h2 class="text-center">Meeting Room: {{ room_id }}</h2>
+        <div id="meeting-video" class="video-wrapper">
+            <!-- Implement Zego UIKit or other video call SDK here -->
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Extract room ID from the query string
+        const params = new URLSearchParams(window.location.search);
+        const roomID = params.get('roomID');
+        
+        if (roomID) {
+            // Set roomID in the input field
+            document.getElementById('roomID').value = roomID;
+
+            // Load video container with the roomID (implement SDK initialization here)
+            const videoContainer = document.getElementById('meeting-video');
+            // Example: Initialize Zego UIKit with the roomID
+            initializeMeeting(videoContainer, roomID);
+        }
+    });
+
+    function initializeMeeting(container, roomID) {
+        // Implement your meeting initialization code here
+        console.log(`Joining room with ID: ${roomID}`);
+        // e.g., ZegoUIKit.joinRoom(roomID, container);
+    }
+</script>
+{% endblock %}

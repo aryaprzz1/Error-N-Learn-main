@@ -1,0 +1,102 @@
+{% extends 'students/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Resources{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+
+<style>
+    h1 {
+        color: #4e73df; /* Change the color of the H1 heading */
+        font-family: 'Nunito', sans-serif; /* Change the font family */
+        font-size: 2.5rem; /* Adjust the font size as needed */
+        font-weight: 700; /* Adjust the font weight as needed */
+    }
+
+    .card {
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Floating effect */
+        transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Floating effect on hover */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    }
+
+    .btn-icon-split {
+        transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    }
+
+    .btn-icon-split:hover {
+        transform: translateY(-3px); /* Floating effect on hover */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    }
+
+    .card-header {
+        background-color: #ffffff; /* Background color of card header */
+    }
+
+    .card-header h6 {
+        color: #000000; /* Change the color of the card header text to black */
+        font-family: 'Nunito', sans-serif; /* Change the font family */
+        font-size: 1.25rem; /* Adjust the font size as needed */
+    }
+</style>
+
+<div class="container-fluid">
+    <h1>{{section.classroom.subject|upper}} : Assignments</h1>
+    <!-- Start: break 4.0 --><br><!-- End: break 4.0 -->
+    <div class="row">
+        <!-- Start: Duplicate this -->
+        {% for assignment in section.assignments.all|dictsortreversed:"created_timestamp" %}
+        <div class="col-md-6 mb-4"> <!-- 6 columns for 2 cards per row -->
+            <!-- Start: Collapsible Card -->
+            <div class="shadow card">
+                <a class="btn btn-link text-left card-header font-weight-bold" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-4-{{assignment.pk|slugify}}" href="#collapse-4-{{assignment.pk|slugify}}" role="button">{{assignment.title}}</a>
+                <div class="collapse show" id="collapse-4-{{assignment.pk|slugify}}">
+                    <div class="card-body">
+                        <div class="alert alert-danger" role="alert">
+                            <span><strong>Deadline :&nbsp; {{assignment.deadline|date:"M d, Y"}}</strong></span>
+                        </div>
+                        <p class="m-0">{{assignment.text|linebreaksbr}}</p>
+                        <!-- Start: break 4.0 --><br><!-- End: break 4.0 -->
+                        <hr>
+                        <div class="row">
+                            <div class="col text-center">
+                                {% if assignment.file %}
+                                <!-- Start: Split Button Success -->
+                                <a class="btn btn-success btn-icon-split" role="button" href="{{assignment.file.url}}" download>
+                                    <span class="text-white-50 icon">
+                                        <i class="fas fa-arrow-circle-down"></i>
+                                    </span>
+                                    <span class="text-white text">Download Assignment</span>
+                                </a>
+                                <!-- End: Split Button Success -->
+                                {% endif %}
+                            </div>
+
+                            <div class="col text-center">
+                                <!-- Start: Split Button Info -->
+                                <a class="btn btn-info btn-icon-split" role="button" href="{% url 'students:my_assignment' pk=assignment.pk %}">
+                                    <span class="text-white-50 icon">
+                                        <i class="fas fa-info-circle"></i>
+                                    </span>
+                                    <span class="text-white text">Manage Submission</span>
+                                </a>
+                                <!-- End: Split Button Info -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End: Collapsible Card -->
+        </div>
+        <!-- End: Duplicate this -->
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

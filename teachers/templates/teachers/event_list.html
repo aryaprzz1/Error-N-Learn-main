@@ -1,0 +1,127 @@
+{% extends 'teachers/base.html' %}
+
+{% block title %}Event Scheduler{% endblock title %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-start">
+            <button type="button" class="btn btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                Add Event
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeEventModal">
+                Remove Event
+            </button>
+        </div>
+    </div>
+    <div class="row h-100">
+        <div class="col-12 h-100">
+            <div id="calendar" class="h-100"></div>
+        </div>
+    </div>
+</div>
+
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+
+<!-- FullCalendar JS -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+
+<!-- Bootstrap CSS (for modal) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (for modal) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label">Event Title</label>
+                        <input type="text" class="form-control" id="eventTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventStart" class="form-label">Start Date & Time</label>
+                        <input type="datetime-local" class="form-control" id="eventStart" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventEnd" class="form-label">End Date & Time</label>
+                        <input type="datetime-local" class="form-control" id="eventEnd" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveEventButton">Save Event</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: 'parent',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            // Sample events
+            {
+                title: 'Event 1',
+                start: '2024-08-10',
+                end: '2024-08-12'
+            },
+            {
+                title: 'Event 2',
+                start: '2024-08-15',
+                allDay: true
+            }
+        ]
+    });
+    calendar.render();
+
+    document.getElementById('saveEventButton').addEventListener('click', function() {
+        var title = document.getElementById('eventTitle').value;
+        var start = document.getElementById('eventStart').value;
+        var end = document.getElementById('eventEnd').value;
+
+        if (title && start && end) {
+            calendar.addEvent({
+                title: title,
+                start: start,
+                end: end
+            });
+            calendar.render();
+
+            // Close modal and reset form
+            document.getElementById('eventForm').reset();
+            var modal = bootstrap.Modal.getInstance(document.getElementById('addEventModal'));
+            modal.hide();
+        }
+    });
+});
+</script>
+
+<style>
+    html, body, .container-fluid {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #calendar {
+        height: calc(100% - 56px); /* Adjust this value if needed */
+    }
+</style>
+{% endblock content %}

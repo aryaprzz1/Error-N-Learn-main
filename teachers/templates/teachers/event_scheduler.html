@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-white">Event Scheduler</h1>
+    <div id="calendar"></div>
+</div>
+
+<!-- FullCalendar CSS -->
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.0/main.min.css' rel='stylesheet' />
+
+<!-- Your Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+<!-- FullCalendar JS -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.0/main.min.js'></script>
+
+<!-- Your Custom JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            // Sample events
+            {
+                title: 'Event 1',
+                start: '2024-08-10',
+                end: '2024-08-12'
+            },
+            {
+                title: 'Event 2',
+                start: '2024-08-15',
+                allDay: true
+            }
+        ]
+    });
+    calendar.render();
+});
+</script>
+{% endblock %}
